@@ -1,6 +1,6 @@
 <?php
-include "sections/session.php";
-include 'sections/navbar2.php';
+include "sections/session2.php";
+include 'sections/adminnav.php';
 
 
 
@@ -73,7 +73,7 @@ if(isset($_POST['update_profile'])){
 }
 
 // 1. FIRST STEP SELECT USER TO BE EDITED
-$sql = "SELECT * FROM employee WHERE id=" . $_SESSION['user'];
+$sql = "SELECT * FROM employee WHERE id=" . $_SESSION['admin'];
 $queryUser =  $conn->prepare($sql);
 $queryUser->execute();
 $user = $queryUser->fetch();
@@ -109,7 +109,7 @@ $numb2 = $user ['sub_contact'];
         <link href='cssfiles/main.css' rel='stylesheet' type='text/css'>
     </head>
 
-<body>
+    <body>
 
 <?php
 
@@ -117,6 +117,8 @@ echo"
         
 <hr>
 <br>
+
+
 
 <div class='div1'>
 <div class='border'></div>
@@ -150,21 +152,19 @@ foreach ($positions as $position) {
     $posName = $position['posname'];
     $selected = ($positionId == $userPositionId) ? 'selected': '';
     $positionDropdown .= "<option value='$positionId' $selected>$posName</option>";
-    }
+}
 $positionDropdown .= "</select>";
 echo $positionDropdown;
 
 echo"
 
-    <button class='edit' name='update_profile' onclick='return activateFields()' id='editButton' value='1'> EDIT </button>
-    <!---<button class='cncl'><a href='eprofile.php'> CANCEL </a></button>-->
+   
+     <button class='edit' name='update_profile' onclick='return activateFields()' id='editButton' value='1'> EDIT </button>
+  
+    <input type='button' class='cncl' name='cancel' value='Cancel Edit'>
     
-    <input class='cncl' type='reset' value='CANCEL' id='cancel'>
-    <script>
-        document.getElementById(cancel).onclick = function() {
-        location.href = 'eprofile.php';
-    }
-    </script>
+  
+    
     
  </div>   
 </td>
@@ -172,7 +172,6 @@ echo"
 </form>
 
 ";
-
 
 echo "
       <script type='text/javascript'>
@@ -244,5 +243,5 @@ echo "
 ?>
 
 <?php
-include 'sections/footer2.php';
+/*include 'sections/footer2.php';*/
 ?>
